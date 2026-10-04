@@ -22,21 +22,21 @@ const DataTable: React.FC<DataTableProps> = ({ gridId, cells, onCellChange }) =>
   }, [cells]);
 
   return (
-    <div className="w-full overflow-x-auto pb-1">
-      <div className="min-w-[500px] sm:min-w-[600px] border border-gray-400 rounded-lg overflow-hidden shadow-sm bg-white">
-        <div className="grid grid-cols-6 divide-x divide-gray-300">
+    <div className="w-full overflow-x-auto pb-2">
+      <div className="min-w-[650px] md:min-w-[750px] border-2 border-slate-700 rounded-xl overflow-hidden shadow-md bg-white">
+        <div className="grid grid-cols-6 divide-x-2 divide-slate-400">
           {/* Editable Cells */}
           {Array.from({ length: ROWS * COLS }).map((_, index) => (
             <div
               key={index}
-              className="h-12 sm:h-14 md:h-16 border-b border-gray-300 bg-white flex items-center justify-center p-0.5 relative group"
+              className="h-16 sm:h-20 md:h-24 border-b-2 border-slate-400 bg-white flex items-center justify-center p-1 relative transition-colors focus-within:bg-amber-100/60"
             >
               <input
                 type="number"
                 value={cells[index]}
                 onChange={(e) => onCellChange(gridId, index, e.target.value)}
                 placeholder=""
-                className="w-full h-full text-center text-base sm:text-lg md:text-xl font-semibold text-gray-800 focus:outline-none focus:bg-amber-50 focus:text-blue-700 transition-colors bg-transparent rounded"
+                className="w-full h-full text-center text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 focus:outline-none focus:text-blue-700 bg-transparent rounded select-all"
                 aria-label={`Cell ${index + 1}`}
               />
             </div>
@@ -45,10 +45,12 @@ const DataTable: React.FC<DataTableProps> = ({ gridId, cells, onCellChange }) =>
           {columnSums.map((sum, index) => (
             <div
               key={`sum-${index}`}
-              className="h-12 sm:h-14 md:h-16 bg-slate-100 flex flex-col items-center justify-center px-1 text-center font-bold text-sm sm:text-base md:text-lg text-slate-800 select-none border-t-2 border-slate-300"
+              className="h-16 sm:h-20 md:h-24 bg-slate-200/90 flex flex-col items-center justify-center px-1 text-center font-extrabold select-none border-t-2 border-slate-600"
             >
-              <span className="text-[10px] text-slate-500 font-medium sm:hidden">សរុប</span>
-              <span className="truncate w-full text-center">{sum.toLocaleString()}</span>
+              <span className="text-xs sm:text-sm text-slate-600 font-semibold mb-0.5">សរុប</span>
+              <span className="text-xl sm:text-2xl md:text-3xl text-slate-900 truncate w-full text-center px-1">
+                {sum.toLocaleString()}
+              </span>
             </div>
           ))}
         </div>
