@@ -22,31 +22,37 @@ const DataTable: React.FC<DataTableProps> = ({ gridId, cells, onCellChange }) =>
   }, [cells]);
 
   return (
-    <div className="grid grid-cols-6 border-t border-l border-black">
-      {/* Editable Cells */}
-      {Array.from({ length: ROWS * COLS }).map((_, index) => (
-        <div
-          key={index}
-          className="aspect-square border-r border-b border-black bg-white flex items-center justify-center"
-        >
-          <input
-            type="number"
-            value={cells[index]}
-            onChange={(e) => onCellChange(gridId, index, e.target.value)}
-            className="w-full h-full text-center text-lg font-medium focus:outline-none focus:bg-yellow-100 bg-white"
-            aria-label={`Cell ${index + 1}`}
-          />
+    <div className="w-full overflow-x-auto pb-1">
+      <div className="min-w-[500px] sm:min-w-[600px] border border-gray-400 rounded-lg overflow-hidden shadow-sm bg-white">
+        <div className="grid grid-cols-6 divide-x divide-gray-300">
+          {/* Editable Cells */}
+          {Array.from({ length: ROWS * COLS }).map((_, index) => (
+            <div
+              key={index}
+              className="h-12 sm:h-14 md:h-16 border-b border-gray-300 bg-white flex items-center justify-center p-0.5 relative group"
+            >
+              <input
+                type="number"
+                value={cells[index]}
+                onChange={(e) => onCellChange(gridId, index, e.target.value)}
+                placeholder=""
+                className="w-full h-full text-center text-base sm:text-lg md:text-xl font-semibold text-gray-800 focus:outline-none focus:bg-amber-50 focus:text-blue-700 transition-colors bg-transparent rounded"
+                aria-label={`Cell ${index + 1}`}
+              />
+            </div>
+          ))}
+          {/* Sum Row */}
+          {columnSums.map((sum, index) => (
+            <div
+              key={`sum-${index}`}
+              className="h-12 sm:h-14 md:h-16 bg-slate-100 flex flex-col items-center justify-center px-1 text-center font-bold text-sm sm:text-base md:text-lg text-slate-800 select-none border-t-2 border-slate-300"
+            >
+              <span className="text-[10px] text-slate-500 font-medium sm:hidden">សរុប</span>
+              <span className="truncate w-full text-center">{sum.toLocaleString()}</span>
+            </div>
+          ))}
         </div>
-      ))}
-      {/* Sum Row */}
-      {columnSums.map((sum, index) => (
-        <div
-          key={`sum-${index}`}
-          className="aspect-square border-r border-b border-black bg-gray-300 flex items-center justify-center text-lg font-bold"
-        >
-          {sum.toLocaleString()}
-        </div>
-      ))}
+      </div>
     </div>
   );
 };

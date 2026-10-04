@@ -334,8 +334,8 @@ const App: React.FC = () => {
 
 
   return (
-    <div className="bg-gray-100 min-h-screen flex items-start justify-center p-2 sm:p-4 md:p-6">
-      <div className="w-full max-w-6xl mx-auto shadow-lg text-black">
+    <div className="bg-slate-100 min-h-screen py-3 sm:py-6 px-2 sm:px-4 md:px-8">
+      <div className="w-full max-w-5xl mx-auto shadow-xl rounded-xl overflow-hidden bg-white border border-slate-200">
         <Header
           sheets={sheets}
           activeSheetId={activeSheetId}
@@ -351,9 +351,10 @@ const App: React.FC = () => {
           canUndo={canUndo}
           canRedo={canRedo}
         />
-        <div className="bg-white p-4 sm:p-6 md:p-8 rounded-b-lg border-2 border-t-0 border-green-400">
+        
+        <main className="p-3 sm:p-6 md:p-8">
           {activeSheet && (
-            <div key={activeSheetId}>
+            <div key={activeSheetId} className="space-y-6">
               <InfoForm 
                 sheetTotalWeight={totalWeightForActiveSheet}
                 date={activeSheet.date}
@@ -361,33 +362,62 @@ const App: React.FC = () => {
                 name={activeSheet.nameInput}
                 onFormChange={handleFormChange}
               />
-              {activeSheet.dataGrids.map(grid => (
-                <div key={grid.id} className="mt-6 overflow-x-auto">
-                  <DataTable 
-                    gridId={grid.id}
-                    cells={grid.cells}
-                    onCellChange={handleCellChange}
-                  />
-                </div>
-              ))}
+
+              <div className="space-y-6">
+                {activeSheet.dataGrids.map((grid, index) => (
+                  <div key={grid.id} className="bg-white rounded-xl border border-slate-200 p-3 sm:p-4 shadow-xs">
+                    <div className="flex items-center justify-between mb-2.5 pb-2 border-b border-slate-100">
+                      <div className="flex items-center gap-2">
+                        <span className="w-2.5 h-2.5 rounded-full bg-sky-500"></span>
+                        <h3 className="font-bold text-sm sm:text-base text-slate-800">
+                          តារាងទី {index + 1}
+                        </h3>
+                      </div>
+                      <span className="text-xs text-slate-400 font-medium">
+                        30 ប្រឡោះ (5 ជួរ × 6 ជួរឈរ)
+                      </span>
+                    </div>
+
+                    <DataTable 
+                      gridId={grid.id}
+                      cells={grid.cells}
+                      onCellChange={handleCellChange}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           )}
-          <div className="mt-6 flex flex-col sm:flex-row items-stretch sm:items-center gap-4 sm:space-x-6">
-            <button
-              onClick={handleAddDataGrid}
-              className="hover:underline transition-all text-lg font-semibold text-left sm:text-center"
-            >
-              + បន្ថែមតារាង
-            </button>
-            <button
-              onClick={handleClearSheetData}
-              className="hover:underline transition-all text-lg font-semibold text-left sm:text-center"
-            >
-              សម្អាតទិន្នន័យ
-            </button>
-            <span className="text-blue-600">(create by sorn vichit 0977414905)</span>
+
+          {/* Bottom Action Controls */}
+          <div className="mt-8 pt-4 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+              <button
+                onClick={handleAddDataGrid}
+                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 bg-sky-600 hover:bg-sky-700 active:scale-95 text-white font-semibold px-4 py-2.5 rounded-lg shadow-sm transition-all text-sm sm:text-base"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
+                </svg>
+                បន្ថែមតារាងថ្មី
+              </button>
+
+              <button
+                onClick={handleClearSheetData}
+                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 bg-red-50 hover:bg-red-100 active:scale-95 text-red-600 hover:text-red-700 font-semibold px-4 py-2.5 rounded-lg border border-red-200 transition-all text-sm sm:text-base"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+                សម្អាតទិន្នន័យ
+              </button>
+            </div>
+
+            <div className="text-xs sm:text-sm text-slate-500 font-medium text-center sm:text-right">
+              បង្កើតឡើងដោយ <span className="text-sky-600 font-bold">sorn vichit (0977414905)</span>
+            </div>
           </div>
-        </div>
+        </main>
       </div>
     </div>
   );

@@ -16,57 +16,75 @@ const InfoForm: React.FC<InfoFormProps> = ({ sheetTotalWeight, date, price, name
   }, [price, sheetTotalWeight]);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6 mb-8">
-      {/* Date Field */}
-      <div className="flex flex-col sm:flex-row sm:items-center">
-        <label className="font-semibold whitespace-nowrap text-lg">ថ្ងៃទី</label>
-        <div className="relative flex-grow mt-1 sm:mt-0 sm:ml-4">
+    <div className="bg-slate-50/70 p-4 sm:p-5 rounded-xl border border-slate-200 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {/* Date Field */}
+        <div className="flex flex-col">
+          <label className="text-xs sm:text-sm font-semibold text-slate-600 mb-1 flex items-center gap-1.5">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            កាលបរិច្ឆេទ (ថ្ងៃទី)
+          </label>
           <input 
             type="date" 
             value={date}
             onChange={(e) => onFormChange('date', e.target.value)}
-            className="w-full py-1 bg-white border border-gray-400 rounded-md px-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full h-11 px-3 bg-white border border-slate-300 rounded-lg shadow-sm text-sm sm:text-base font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-all"
             aria-label="Date"
           />
         </div>
-      </div>
 
-      {/* Price Field */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-        <label className="font-semibold whitespace-nowrap text-lg">តម្លៃ</label>
-        <input
-          type="number"
-          value={price}
-          onChange={(e) => onFormChange('price', e.target.value)}
-          className="w-full sm:w-32 text-left sm:text-right font-bold text-lg py-1 mt-1 sm:mt-0 bg-white border border-gray-400 rounded-md px-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          aria-label="Price"
-        />
-      </div>
-
-      {/* Name Field */}
-      <div className="flex flex-col sm:flex-row sm:items-center">
-        <label className="font-semibold whitespace-nowrap text-lg">ឈ្មោះ</label>
-        <div className="flex-grow mt-1 sm:mt-0 sm:ml-4">
+        {/* Name Field */}
+        <div className="flex flex-col">
+          <label className="text-xs sm:text-sm font-semibold text-slate-600 mb-1 flex items-center gap-1.5">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+            ឈ្មោះអតិថិជន
+          </label>
           <input 
             type="text"
+            placeholder="បញ្ចូលឈ្មោះ..."
             value={name}
             onChange={(e) => onFormChange('nameInput', e.target.value)}
-            className="w-full py-1 bg-white border border-gray-400 rounded-md px-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full h-11 px-3 bg-white border border-slate-300 rounded-lg shadow-sm text-sm sm:text-base font-medium text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-all"
             aria-label="Name"
+          />
+        </div>
+
+        {/* Price Field */}
+        <div className="flex flex-col sm:col-span-2 lg:col-span-1">
+          <label className="text-xs sm:text-sm font-semibold text-slate-600 mb-1 flex items-center gap-1.5">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            តម្លៃក្នុងមួយឯកតា
+          </label>
+          <input
+            type="number"
+            value={price}
+            onChange={(e) => onFormChange('price', e.target.value)}
+            className="w-full h-11 px-3 bg-white border border-slate-300 rounded-lg shadow-sm text-sm sm:text-base font-bold text-slate-800 text-left sm:text-right focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-all"
+            aria-label="Price"
           />
         </div>
       </div>
 
-      {/* Total Weight Field */}
-      <div className="flex items-center justify-between">
-        <label className="font-semibold whitespace-nowrap text-lg">ទម្ងន់សរុប</label>
-        <span className="font-bold text-lg">{sheetTotalWeight.toLocaleString()}</span>
-      </div>
-
-      {/* Total Price Field */}
-      <div className="flex items-center justify-between sm:justify-start">
-        <label className="font-semibold whitespace-nowrap text-lg">តម្លៃសរុប</label>
-        <span className="font-bold text-lg sm:ml-4">{totalPrice.toLocaleString()}</span>
+      {/* Summary Stat Cards for Active Sheet */}
+      <div className="mt-4 pt-3 border-t border-slate-200/80 grid grid-cols-2 gap-3 sm:gap-4">
+        <div className="bg-white rounded-lg p-2.5 sm:p-3 border border-slate-200 shadow-xs flex flex-col justify-center">
+          <span className="text-xs sm:text-sm font-medium text-slate-500">ទម្ងន់សរុប (សន្លឹកនេះ)</span>
+          <span className="text-lg sm:text-2xl font-bold text-slate-800 truncate mt-0.5">
+            {sheetTotalWeight.toLocaleString()}
+          </span>
+        </div>
+        <div className="bg-white rounded-lg p-2.5 sm:p-3 border border-slate-200 shadow-xs flex flex-col justify-center">
+          <span className="text-xs sm:text-sm font-medium text-slate-500">តម្លៃសរុប (សន្លឹកនេះ)</span>
+          <span className="text-lg sm:text-2xl font-bold text-emerald-600 truncate mt-0.5">
+            {totalPrice.toLocaleString()}៛
+          </span>
+        </div>
       </div>
     </div>
   );
