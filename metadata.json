@@ -1,0 +1,6 @@
+{
+  "name": "Khmercalculator",
+  "description": "A React application that recreates a table-based form layout from an image, using Tailwind CSS for styling.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
